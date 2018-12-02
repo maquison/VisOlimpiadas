@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+	integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+	crossorigin=""/>
+
+    <title>VisOlimpiadas</title>
+
+    <!-- Custom styles for this template -->
+	<link rel="stylesheet" href="css/dc.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/crossfilter.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="js/dc.min.js"></script>
+	
+	<script type="text/javascript" src="js/world-map.js"></script>
+
+</head>
+<body>
+	<div class="single-col">
+		<h1>VisOlimpiadas</h1>
+    </div>
+	</br>
+  <main role="main" class="container">
+    <div class='row'>
+    	<div id="mapid" class="single-col">
+    	</div>
+    </div>
+    </br></br>
+    <div class='row'>
+      <div id='season-chart' class="single-col">
+         <h4> Comparação Jogos de Verão x Jogos de Inverno </h4>
+      </div>
+
+	</div>
+  </main>
+  <script type="text/javascript">
+	// Create the dc.js chart objects & link to div
+
+	let barChartSeason = dc.barChart('#season-chart');
+	
+	// load data from a csv file
+	d3.csv("data/olympic_host_country.csv").then(function (data) {
+
+		let map = L.map('mapid').setView([0,0], 2);
+		
+		L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+			maxZoom: 17
+		}).addTo(map);
+
+		let geojson = L.geoJson(worldMapData, {
+			weight: 1,
+        	opacity: 1,
+        	color: 'green',
+        	fillOpacity: 0.1}).addTo(map);
+
+		// Create marker
+		let marker;
+
+		// Create icon orange
+		var orangeIcon = new L.Icon({
+			iconUrl: 'img/marker-icon-2x-orange.png',
+			shadowUrl: 'img/marker-shadow.png',
+			iconSize: [25, 41],
+			iconAnchor: [12, 41],
+			popupAnchor: [1, -34],
+			shadowSize: [41, 41]
+		});
+
+	  data.forEach(function(d){
+
+		d.tipo = d.Season;
+
+		if (d.Season.toString() == "Summer") {
+    		d.latSummer = +d.lat;
+			d.longSummer = +d.long;
+			marker = L.marker([d.latSummer, d.longSummer],{icon: orangeIcon}).addTo(map);
+			marker.bindPopup("Jogos: "+d.Season+" "+d.Year+"<br>Cidade Sede: "+d.City+"<br>País: "+d.Region);
+		}
+
+		if (d.Season.toString() == "Winter") {
+    		d.latWinter = +d.lat;
+			d.longWinter = +d.long;
+			marker = L.marker([d.latWinter, d.longWinter]).addTo(map);
+			marker.bindPopup("Jogos: "+d.Season+" "+d.Year+"<br>Cidade Sede: "+d.City+"<br>País: "+d.Region);
+		}
+
+	  });
+
+	  // Run the data through crossfilter and load our 'facts'
+ 		let facts = crossfilter(data);
+
+		//Create a dimension for type
+		let tipoDim = facts.dimension(function(d){
+        	return d.tipo;
+    });
+	  
+	  //Create a group for type
+	  let tipoGroup = tipoDim.group();
+
+		// Setup the charts
+
+	  barChartSeason.width(600)
+                    .height(400)
+                    .margins({top: 20, right: 50, bottom: 40, left: 40})
+					.x(d3.scaleLinear())
+                    .dimension(tipoDim)
+                    .group(tipoGroup)
+                    .xUnits(dc.units.ordinal)
+                    .xAxisLabel("Tipo do Jogos")
+                    .yAxisLabel("Número de Jogos")
+                    .elasticX(true);
+
+	// Render the Charts
+	dc.renderAll();
+	
+	});
+
+	</script>
+	 <!-- Bootstrap javascript files -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+	<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+	integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+	crossorigin=""></script>
+		
+</body>
+</html>
