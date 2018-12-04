@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+	integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+	crossorigin=""/>
+
+    <!-- Custom styles for this template -->
+	<link rel="stylesheet" href="css/dc.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/crossfilter.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+	<script src="js/dc.min.js"></script>
+	
+    <script type="text/javascript" src="js/world-map.js"></script>
+    
+    <title>VisOlimpiadas</title>
+
+    <nav id="menu">
+        <ul>
+            <li><a href="visolimpiadas.html">Home</a></li>
+            <li><a href="brasilolimpiadas.html">Brasil</a></li>
+        </ul>
+    </nav>
+
+</head>
+<body>
+    </br>
+	<div class="single-col">
+		<h1 style="text-align:center;">VisOlimpiadas - Brasil</h1>
+    </div>
+	</br>
+  <main role="main" class="container">
+    <div class='row'>
+      <div id='medal-chart' class="single-col">
+         <h4> Medalhas de Ouro por Ano </h4>
+      </div>
+      <div id='part-chart' class="single-col">
+        <h4> Participações por Ano </h4>
+     </div>
+     <div id='partgold-chart' class="single-col">
+        <h4> Participações por Ano </h4>
+     </div>
+	</div>
+  </main>
+  <script type="text/javascript">
+	// Create the dc.js chart objects & link to div
+
+	let barChartMedal = dc.barChart('#medal-chart');
+    let barChartPart = dc.barChart('#part-chart');
+    let barChartPartGold = dc.barChart('#partgold-chart');
+	
+	// load data from a csv file
+	
+	d3.csv("data/athlete_events.csv").then(function (data) {
+
+	    let ouro = 0;
+      
+        data.forEach(function(d){
+
+            d.id = d.ID;
+            d.ano = +d.Year;
+            d.sigla = d.NOC;
+            d.medalha = d.Medal;
+            d.gold = 0;
+            d.participacao = 0;
+
+            if (d.sigla.toString() == "BRA" && d.medalha.toString() == "Gold") {
+                d.gold=d.gold+1;
+                console.log(d.gold);
+		    }
+            if (d.sigla.toString() == "BRA") {
+                d.participacao = d.participacao+1;
+                console.log(d.participacao);
+		    }
+
+	  });
+
+	// Run the data through crossfilter and load our 'facts'
+ 	let facts = crossfilter(data);
+
+    let anoDim = facts.dimension(function(d){
+        return d.ano;
+    });
+
+    let goldDim = facts.dimension(function(d){
+        return d.gold;
+    });
+
+    let partDim = facts.dimension(function(d){
+        return d.participacao;
+    });
+
+	//Create a dimension for gold
+	let goldGroup = anoDim.group().reduceSum(function(d){
+        return d.gold;
+    });
+
+    //Create a dimension for participation
+	let partGroup = anoDim.group().reduceSum(function(d){
+        return d.participacao;
+    });
+
+    let partGoldGroup = partDim.group().reduceSum(function(d){
+        return d.gold;
+    });
+	  
+	//Create a group for type
+
+    let anoGroup = anoDim.group();
+
+	// Setup the charts
+
+	barChartMedal.width(1080)
+                .height(480)
+                .margins({top: 20, right: 50, bottom: 40, left: 40})
+                .dimension(anoDim)
+                .group(goldGroup)
+                .xUnits(dc.units.ordinal)
+                .xAxisLabel("Ano dos Jogos")
+                .yAxisLabel("Número de Medalhas de Ouro")
+                .elasticX(true)
+                .x(d3.scaleBand().domain(d3.extent(data, function(d) { return d.ano; })));
+
+    barChartPart.width(1080)
+                .height(480)
+                .margins({top: 20, right: 50, bottom: 40, left: 40})
+                .dimension(anoDim)
+                .group(partGroup)
+                .xUnits(dc.units.ordinal)
+                .xAxisLabel("Ano dos Jogos")
+                .yAxisLabel("Número de participações")
+                .elasticX(true)
+                .x(d3.scaleBand().domain(d3.extent(data, function(d) { return d.ano; })));
+
+    
+
+	// Render the Charts
+	dc.renderAll();
+	
+	});
+
+	</script>
+	 <!-- Bootstrap javascript files -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+	<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+	integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+	crossorigin=""></script>
+		
+</body>
+</html>
