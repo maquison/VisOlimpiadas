@@ -1,7 +1,7 @@
 Year,Season,Continent,NOC,Region,City,lat,long
 1896,Summer,Europe,GRE,Greece,Athina,37.9908997,23.7033198
 1900,Summer,Europe,FRA,France,Paris,48.8589507,2.2770198
-1904,Summer,Central America,USA,USA,St. Louis,38.7602205,-91.3997666
+1904,Summer,North America,USA,USA,St. Louis,38.7602205,-91.3997666
 1906,Summer,Europe,GRE,Greece,Athina,37.9908997,23.7033198
 1908,Summer,Europe,GBR,UK,London,51.5287352,-0.3817836
 1912,Summer,Europe,SWE,Sweden,Stockholm,59.3262420,17.8419697
@@ -10,8 +10,8 @@ Year,Season,Continent,NOC,Region,City,lat,long
 1924,Winter,Europe,FRA,France,Chamonix,45.9322165,6.7888753
 1928,Summer,Europe,NED,Netherlands,Amsterdam,52.3547750,4.7585390
 1928,Winter,Europe,SUI,Switzerland,Sankt Moritz,46.4861587,9.7719305
-1932,Summer,Central America,USA,USA,Los Angeles,34.0207305,-118.6919282
-1932,Winter,Central America,USA,USA,Lake Placid,44.2843894,-74.0037255
+1932,Summer,North America,USA,USA,Los Angeles,34.0207305,-118.6919282
+1932,Winter,North America,USA,USA,Lake Placid,44.2843894,-74.0037255
 1936,Summer,Europe,GER,Germany,Berlin,52.5069312,13.1445476
 1936,Winter,Europe,GER,Germany,Garmisch-Partenkirchen,47.4712937,10.9061333
 1948,Summer,Europe,GBR,UK,London,51.5287352,-0.3817836
@@ -21,32 +21,32 @@ Year,Season,Continent,NOC,Region,City,lat,long
 1956,Summer,Oceania,AUS,Australia,Melbourne,-37.9701541,144.4926806
 1956,Winter,Europe,ITA,Italy,Cortina d'Ampezzo,46.5324670,12.1072920
 1960,Summer,Europe,ITA,Italy,Roma,41.9102415,12.3959122
-1960,Winter,Central America,USA,USA,Squaw Valley,39.2034441,-120.2375249
+1960,Winter,North America,USA,USA,Squaw Valley,39.2034441,-120.2375249
 1964,Summer,Asia,JPN,Japan,Tokyo,35.6735408,139.5703014
 1964,Winter,Europe,AUT,Austria,Innsbruck,47.2856026,11.2387051
-1968,Summer,Central America,MEX,Mexico,Mexico City,19.3209310,-99.4328150
+1968,Summer,North America,MEX,Mexico,Mexico City,19.3209310,-99.4328150
 1968,Winter,Europe,FRA,France,Grenoble,45.1842207,5.6805229
 1972,Summer,Europe,GER,Germany,Munich,48.1550547,11.4017510
 1972,Winter,Asia,JPN,Japan,Sapporo,43.0595541,141.3004597
-1976,Summer,Central America,CAN,Canada,Montreal,45.5581968,-73.8703877
+1976,Summer,North America,CAN,Canada,Montreal,45.5581968,-73.8703877
 1976,Winter,Europe,AUT,Austria,Innsbruck,47.2856026,11.2387051
 1980,Summer,Europe,RUS,Russia,Moskva,55.5815244,36.8251032
-1980,Winter,Central America,USA,USA,Lake Placid,44.2843894,-74.0037255
-1984,Summer,Central America,USA,USA,Los Angeles,34.0207305,-118.6919282
+1980,Winter,North America,USA,USA,Lake Placid,44.2843894,-74.0037255
+1984,Summer,North America,USA,USA,Los Angeles,34.0207305,-118.6919282
 1984,Winter,Europe,BIH,Bosnia and Herzegovina,Sarajevo,43.8938256,18.3129512
 1988,Summer,Asia,KOR,South Korea,Seoul,37.5652894,126.8494637
-1988,Winter,Central America,CAN,Canada,Calgary,51.0132140,-114.3543408
+1988,Winter,North America,CAN,Canada,Calgary,51.0132140,-114.3543408
 1992,Summer,Europe,ESP,Spain,Barcelona,41.3948976,2.0787275
 1992,Winter,Europe,FRA,France,Albertville,45.6647635,6.3749310
 1994,Winter,Europe,NOR,Norway,Lillehammer,61.1333311,10.1105239
-1996,Summer,Central America,USA,USA,Atlanta,33.7679192,-84.5606907
+1996,Summer,North America,USA,USA,Atlanta,33.7679192,-84.5606907
 1998,Winter,Asia,JPN,Japan,Nagano,36.1114174,136.9107873
 2000,Summer,Oceania,AUS,Australia,Sydney,-33.8473567,150.6517827
-2002,Winter,Central America,USA,USA,Salt Lake City,40.7767833,-112.0605709
+2002,Winter,North America,USA,USA,Salt Lake City,40.7767833,-112.0605709
 2004,Summer,Europe,GRE,Greece,Athina,37.9908997,23.7033198
 2006,Winter,Europe,ITA,Italy,Torino,45.0735886,7.6055663
 2008,Summer,Asia,CHN,China,Beijing,40.2484738,115.3477703
-2010,Winter,Central America,CAN,Canada,Vancouver,49.2578263,-123.1939441
+2010,Winter,North America,CAN,Canada,Vancouver,49.2578263,-123.1939441
 2012,Summer,Europe,GBR,UK,London,51.5287352,-0.3817836
 2014,Winter,Europe,RUS,Russia,Sochi,43.6018244,39.6550887
 2016,Summer,South America,BRA,Brazil,Rio de Janeiro,-22.9132525,-43.7261799

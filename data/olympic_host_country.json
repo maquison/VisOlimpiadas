@@ -22,7 +22,7 @@
   {
     "Year": 1904,
     "Season": "Summer",
-    "Continent": "Central America",
+    "Continent": "North America",
     "NOC": "USA",
     "Region": "USA",
     "City": "St. Louis",
@@ -112,7 +112,7 @@
   {
     "Year": 1932,
     "Season": "Summer",
-    "Continent": "Central America",
+    "Continent": "North America",
     "NOC": "USA",
     "Region": "USA",
     "City": "Los Angeles",
@@ -122,7 +122,7 @@
   {
     "Year": 1932,
     "Season": "Winter",
-    "Continent": "Central America",
+    "Continent": "North America",
     "NOC": "USA",
     "Region": "USA",
     "City": "Lake Placid",
@@ -222,7 +222,7 @@
   {
     "Year": 1960,
     "Season": "Winter",
-    "Continent": "Central America",
+    "Continent": "North America",
     "NOC": "USA",
     "Region": "USA",
     "City": "Squaw Valley",
@@ -252,7 +252,7 @@
   {
     "Year": 1968,
     "Season": "Summer",
-    "Continent": "Central America",
+    "Continent": "North America",
     "NOC": "MEX",
     "Region": "Mexico",
     "City": "Mexico City",
@@ -292,7 +292,7 @@
   {
     "Year": 1976,
     "Season": "Summer",
-    "Continent": "Central America",
+    "Continent": "North America",
     "NOC": "CAN",
     "Region": "Canada",
     "City": "Montreal",
@@ -322,7 +322,7 @@
   {
     "Year": 1980,
     "Season": "Winter",
-    "Continent": "Central America",
+    "Continent": "North America",
     "NOC": "USA",
     "Region": "USA",
     "City": "Lake Placid",
@@ -332,7 +332,7 @@
   {
     "Year": 1984,
     "Season": "Summer",
-    "Continent": "Central America",
+    "Continent": "North America",
     "NOC": "USA",
     "Region": "USA",
     "City": "Los Angeles",
@@ -362,7 +362,7 @@
   {
     "Year": 1988,
     "Season": "Winter",
-    "Continent": "Central America",
+    "Continent": "North America",
     "NOC": "CAN",
     "Region": "Canada",
     "City": "Calgary",
@@ -402,7 +402,7 @@
   {
     "Year": 1996,
     "Season": "Summer",
-    "Continent": "Central America",
+    "Continent": "North America",
     "NOC": "USA",
     "Region": "USA",
     "City": "Atlanta",
@@ -432,7 +432,7 @@
   {
     "Year": 2002,
     "Season": "Winter",
-    "Continent": "Central America",
+    "Continent": "North America",
     "NOC": "USA",
     "Region": "USA",
     "City": "Salt Lake City",
@@ -472,7 +472,7 @@
   {
     "Year": 2010,
     "Season": "Winter",
-    "Continent": "Central America",
+    "Continent": "North America",
     "NOC": "CAN",
     "Region": "Canada",
     "City": "Vancouver",
