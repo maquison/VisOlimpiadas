@@ -1,3 +1,7 @@
-## VisOlimpiadas
+# VisOlimpiadas
 
-[Site VisOlimpiadas](visolimpiadas.html)<br>
+## Home
+[Home - VisOlimpiadas](visolimpiadas.html)<br>
+
+## Brasil
+[Brasil - VisOlimpiadas](brasilolimpiadas.html)<br>

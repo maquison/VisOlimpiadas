@@ -31,53 +31,85 @@
 
 </head>
 <body>
-    </br>
-	<div class="single-col">
-		<h1 style="text-align:center;">VisOlimpiadas - Brasil</h1>
+</br>
+    <div class="single-col">
+		<h1 style="text-align:center;"><i>VisOlimpiadas - Brasil</i></h1>
     </div>
 	</br>
-  <main role="main" class="container">
-    <div class='row'>
-      <div id='medal-chart' class="single-col">
-         <h4> Medalhas de Ouro por Ano </h4>
-      </div>
-      <div id='part-chart' class="single-col">
-        <h4> Participações por Ano </h4>
-     </div>
-     <div id='partgold-chart' class="single-col">
-        <h4> Participações por Ano </h4>
-     </div>
-	</div>
-  </main>
-  <script type="text/javascript">
+    <main role="main" class="container">
+        <div class='row'>
+            <div id='medal-chart' class="single-col">
+                </br></br>
+                <h4> Medalhas de Ouro por Ano </h4>
+            </div>
+        
+            <div id='part-chart' class="single-col">
+                </br></br>
+                <h4> Participações por Ano </h4>
+            </div>
+    
+            <div id='partsummer-chart' class="single-col">
+                </br></br>
+                <h4> Participações por Ano nas Olímpiadas de Verão </h4>
+            </div>
+
+            <div id='composite-chart' class="single-col">
+                </br></br>
+                <h4> Medalhas por Ano nas Olímpiadas de Verão </h4>
+            </div>
+	    </div>
+    </main>
+    </br></br></br>
+    <div>
+        <h5 style="text-align:center;"> Trabalho Final da Diciplina de Visualização Científica - 2018.2 </h5>
+    </div>
+
+<script type="text/javascript">
 	// Create the dc.js chart objects & link to div
 
 	let barChartMedal = dc.barChart('#medal-chart');
     let barChartPart = dc.barChart('#part-chart');
-    let barChartPartGold = dc.barChart('#partgold-chart');
+    let lineChartPartSummer = dc.lineChart('#partsummer-chart');
+    let compositeChart = dc.compositeChart('#composite-chart');
 	
 	// load data from a csv file
 	
 	d3.csv("data/athlete_events.csv").then(function (data) {
-
-	    let ouro = 0;
       
         data.forEach(function(d){
 
-            d.id = d.ID;
+            d.id = +d.ID;
             d.ano = +d.Year;
             d.sigla = d.NOC;
             d.medalha = d.Medal;
+            d.tipo = d.Season;
             d.gold = 0;
+            d.prata = 0;
+            d.bronze = 0;
             d.participacao = 0;
+            d.summer = 0;
 
             if (d.sigla.toString() == "BRA" && d.medalha.toString() == "Gold") {
                 d.gold=d.gold+1;
                 console.log(d.gold);
+            } 
+            
+            if (d.sigla.toString() == "BRA" && d.medalha.toString() == "Silver") {
+                d.prata=d.prata+1;
+                console.log(d.prata);
+            } 
+            
+            if (d.sigla.toString() == "BRA" && d.medalha.toString() == "Bronze") {
+                d.bronze=d.bronze+1;
+                console.log(d.bronze);
 		    }
+
             if (d.sigla.toString() == "BRA") {
                 d.participacao = d.participacao+1;
-                console.log(d.participacao);
+            }
+
+            if (d.sigla.toString() == "BRA" && d.tipo.toString() == "Summer") {
+                d.summer = d.ano;
 		    }
 
 	  });
@@ -87,6 +119,10 @@
 
     let anoDim = facts.dimension(function(d){
         return d.ano;
+    });
+
+    let summerDim = facts.dimension(function(d){
+        return d.summer;
     });
 
     let goldDim = facts.dimension(function(d){
@@ -102,8 +138,37 @@
         return d.gold;
     });
 
+    //Create a dimension for silver
+	let silverGroup = anoDim.group().reduceSum(function(d){
+        return d.prata;
+    });
+
+    //Create a dimension for bronze
+	let bronzeGroup = anoDim.group().reduceSum(function(d){
+        return d.bronze;
+    });
+
+    //Create a dimension for gold
+	let goldSummerGroup = summerDim.group().reduceSum(function(d){
+        return d.gold;
+    });
+
+    //Create a dimension for silver
+	let silverSummerGroup = summerDim.group().reduceSum(function(d){
+        return d.prata;
+    });
+
+    //Create a dimension for bronze
+	let bronzeSummerGroup = summerDim.group().reduceSum(function(d){
+        return d.bronze;
+    });
+
     //Create a dimension for participation
 	let partGroup = anoDim.group().reduceSum(function(d){
+        return d.participacao;
+    });
+
+    let partSummerGroup = summerDim.group().reduceSum(function(d){
         return d.participacao;
     });
 
@@ -139,7 +204,35 @@
                 .elasticX(true)
                 .x(d3.scaleBand().domain(d3.extent(data, function(d) { return d.ano; })));
 
-    
+    lineChartPartSummer.width(1080)
+                .height(480)
+                .margins({top: 20, right: 50, bottom: 40, left: 40})
+                .dimension(summerDim)
+                .group(partSummerGroup)
+                .xUnits(dc.units.ordinal)
+                .xAxisLabel("Ano dos Jogos")
+                .yAxisLabel("Número de participações")
+                .elasticX(true)
+                .x(d3.scaleBand().domain(d3.extent(data, function(d) { return d.summer; })));
+
+    compositeChart.width(1080)
+                     .height(480)
+                     .margins({top: 50, right: 50, bottom: 25, left: 40})
+                     .dimension(summerDim)
+                     .x(d3.scaleLinear().domain(d3.extent(data, function(d) { return d.ano; })))
+                     .renderHorizontalGridLines(true)
+                     .brushOn(false)
+                     .legend(dc.legend().x(80).y(20).itemHeight(13).gap(5))    
+                     .compose([
+                        dc.lineChart(compositeChart)
+                                  .group(goldSummerGroup, 'Ouro')
+                                  .ordinalColors(['gold']),
+                        dc.lineChart(compositeChart)
+                                  .group(silverSummerGroup, 'Prata')
+                                  .ordinalColors(['silver']),
+                        dc.lineChart(compositeChart)
+                                  .group(bronzeSummerGroup, 'Bronze')
+                                  .ordinalColors(['#cd7f32'])]);
 
 	// Render the Charts
 	dc.renderAll();

@@ -18,7 +18,7 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
 	<script src="js/dc.min.js"></script>
 	
-	<script type="text/javascript" src="js/world-map.js"></script>
+	<script type="text/javascript" src="data/worldMap.js"></script>
 
 	<title>VisOlimpiadas</title>
 
@@ -51,6 +51,10 @@
 	 </div>
 	</div>
   </main>
+	</br></br></br>
+	<div>
+		<h5 style="text-align:center;"> Trabalho Final da Diciplina de Visualização Científica - 2018.2 </h5>
+	</div>
   <script type="text/javascript">
 	// Create the dc.js chart objects & link to div
 
@@ -71,7 +75,7 @@
 		id: 'mapbox.streets'
 		}).addTo(map);
 
-		let geojson = L.geoJson(worldMapData, {
+		let geojson = L.geoJson(worldMap, {
 			weight: 1,
         	opacity: 1,
         	color: 'green',
